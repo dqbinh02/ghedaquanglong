@@ -76,3 +76,16 @@ async def delete_product(product_id: str, user: str = Depends(get_current_user))
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f"Product with id {product_id} not found"
         ) 
+    
+@router.get("/categories", response_model=List[str])
+async def get_categories():
+    """Get all unique product categories"""
+    try:
+        products = await ProductService.get_products()
+        categories = sorted(list(set([p.category for p in products if p.category])))
+        return categories
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=str(e)
+        )

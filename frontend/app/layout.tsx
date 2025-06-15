@@ -2,10 +2,15 @@ import type React from "react"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import "./globals.css"
-import Header from "@/components/Header"
+import dynamic from 'next/dynamic'
 import Footer from "@/components/Footer"
 
 const inter = Inter({ subsets: ["latin", "vietnamese"] })
+
+// Dynamically import Header with no SSR
+const Header = dynamic(() => import('@/components/Header'), {
+  ssr: false
+})
 
 export const metadata: Metadata = {
   title: {
@@ -32,7 +37,7 @@ export const metadata: Metadata = {
   verification: {
     google: "your-google-verification-code",
   },
-    generator: 'v0.dev'
+  generator: 'v0.dev'
 }
 
 export default function RootLayout({
@@ -41,14 +46,14 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="vi">
+    <html lang="vi" suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
-      <body className={inter.className}>
+      <body className={inter.className} suppressHydrationWarning>
         <Header />
-        {children}
+        <main>{children}</main>
         <Footer />
       </body>
     </html>
