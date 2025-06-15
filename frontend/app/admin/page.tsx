@@ -91,12 +91,12 @@ export default function AdminPage() {
 
   return (
     <div className="min-h-screen bg-gray-100" suppressHydrationWarning>
-      <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-        <div className="px-4 py-6 sm:px-0">
+      <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8" suppressHydrationWarning>
+        <div className="px-4 py-6 sm:px-0" suppressHydrationWarning>
           {!isAuthenticated ? (
             <AdminLogin onLogin={handleLogin} />
           ) : (
-            <div>
+            <div suppressHydrationWarning>
               <div className="flex justify-between items-center mb-6">
                 <h1 className="text-2xl font-bold text-gray-900">Quản lý sản phẩm</h1>
                 <button

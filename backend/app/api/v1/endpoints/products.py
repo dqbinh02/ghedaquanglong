@@ -24,6 +24,7 @@ def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(securit
     except JWTError:
         raise HTTPException(status_code=401, detail="Invalid authentication credentials")
 
+@router.get("", response_model=List[ProductInDB])
 @router.get("/", response_model=List[ProductInDB])
 async def get_products():
     """Get all products"""

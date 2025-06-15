@@ -42,8 +42,8 @@ export default function AdminLogin({ onLogin }: AdminLoginProps) {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#005c47] to-[#004a3a] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8 bg-white p-8 rounded-2xl shadow-2xl">
+    <div className="min-h-screen bg-gradient-to-br from-[#005c47] to-[#004a3a] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8" suppressHydrationWarning>
+      <div className="max-w-md w-full space-y-8 bg-white p-8 rounded-2xl shadow-2xl" suppressHydrationWarning>
         <div className="text-center">
           <div className="flex justify-center mb-6">
             <div className="relative w-24 h-24">
@@ -64,13 +64,13 @@ export default function AdminLogin({ onLogin }: AdminLoginProps) {
           </p>
         </div>
 
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-          <div className="space-y-4">
-            <div>
+        <form className="mt-8 space-y-6" onSubmit={handleSubmit} suppressHydrationWarning>
+          <div className="space-y-4" suppressHydrationWarning>
+            <div suppressHydrationWarning>
               <label htmlFor="username" className="block text-sm font-medium text-gray-700">
                 Tên đăng nhập
               </label>
-              <div className="mt-1">
+              <div className="mt-1" suppressHydrationWarning>
                 <input
                   id="username"
                   name="username"
@@ -80,15 +80,16 @@ export default function AdminLogin({ onLogin }: AdminLoginProps) {
                   onChange={(e) => setUsername(e.target.value)}
                   className="appearance-none block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#005c47] focus:border-[#005c47] transition duration-150 ease-in-out"
                   placeholder="Nhập tên đăng nhập"
+                  suppressHydrationWarning
                 />
               </div>
             </div>
 
-            <div>
+            <div suppressHydrationWarning>
               <label htmlFor="password" className="block text-sm font-medium text-gray-700">
                 Mật khẩu
               </label>
-              <div className="mt-1">
+              <div className="mt-1" suppressHydrationWarning>
                 <input
                   id="password"
                   name="password"
@@ -98,6 +99,7 @@ export default function AdminLogin({ onLogin }: AdminLoginProps) {
                   onChange={(e) => setPassword(e.target.value)}
                   className="appearance-none block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#005c47] focus:border-[#005c47] transition duration-150 ease-in-out"
                   placeholder="Nhập mật khẩu"
+                  suppressHydrationWarning
                 />
               </div>
             </div>
