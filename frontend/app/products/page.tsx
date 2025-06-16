@@ -1,13 +1,38 @@
 "use client";
 
 import type { Metadata } from "next"
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
 import ProductList from "@/components/ProductList";
 import ProductCategoryFilter from "@/components/ProductCategoryFilter";
 
 
 export default function ProductsPage() {
+  const searchParams = useSearchParams();
+  const router = useRouter();
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+
+  // Khi vào trang, đọc category từ query
+  useEffect(() => {
+    const categoryParam = searchParams.get("category");
+    if (categoryParam) {
+      setSelectedCategories([categoryParam]);
+    } else {
+      setSelectedCategories([]);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParams.get("category")]);
+
+  // Khi filter thay đổi, cập nhật lại URL
+  const handleCategoryChange = (cats: string[]) => {
+    setSelectedCategories(cats);
+    if (cats.length > 0) {
+      router.replace(`?category=${encodeURIComponent(cats[0])}`);
+    } else {
+      router.replace("/products");
+    }
+  };
+
   return (
     <main className="py-16">
       <div className="container mx-auto px-4">
@@ -18,7 +43,7 @@ export default function ProductsPage() {
             nhất
           </p>
         </div>
-        <ProductCategoryFilter selected={selectedCategories} onChange={setSelectedCategories} />
+        <ProductCategoryFilter selected={selectedCategories} onChange={handleCategoryChange} />
         <ProductList selectedCategories={selectedCategories} />
       </div>
     </main>

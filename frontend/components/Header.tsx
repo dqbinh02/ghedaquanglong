@@ -48,7 +48,8 @@ const Navigation = ({ isMobile = false, onClose }: { isMobile?: boolean; onClose
           return (
             <DropdownMenu
               key={item.name}
-              label={<span className="text-gray-700 hover:text-[#005c47] font-medium transition-colors cursor-pointer">{item.name}</span>}
+              label="Sản Phẩm"
+              labelHref="/products"
               items={
                 loading
                   ? [{ name: "Đang tải...", href: "/products" }]

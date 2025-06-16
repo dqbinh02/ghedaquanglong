@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 import { productApi, Product } from '@/lib/api';
 
 interface ProductListProps {
@@ -60,29 +61,33 @@ export default function ProductList({ selectedCategories }: ProductListProps) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
       {filteredProducts.map((product) => (
-        <div key={product._id} className="bg-white border rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300 group relative">
-          <div className="relative">
-            <img
-              src={product.image_url}
-              alt={product.name}
-              className="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-300"
-            />
-
-          </div>
-          <div className="p-5">
-            <h2 className="text-xl font-bold mb-2 text-[#005c47] group-hover:underline">{product.name}</h2>
-            <p className="text-gray-600 mb-3 line-clamp-2 min-h-[40px]">{product.description}</p>
-            <div className="flex justify-between items-center mt-4">
-              <span className="text-lg font-semibold text-[#005c47]">{product.price.toLocaleString()}₫</span>
-              <button
-                className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors duration-300"
-                onClick={() => window.location.href = `/products/${product._id}`}
-              >
-                Xem Chi Tiết
-              </button>
+        <Link key={product._id} href={`/products/${product._id}`} className="block group">
+          <div className="bg-white border rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300 group relative cursor-pointer">
+            <div className="relative">
+              <img
+                src={product.image_url}
+                alt={product.name}
+                className="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-300"
+              />
+            </div>
+            <div className="p-5">
+              <h2 className="text-xl font-bold mb-2 text-[#005c47] group-hover:underline">{product.name}</h2>
+              <p className="text-gray-600 mb-3 line-clamp-2 min-h-[40px]">{product.description}</p>
+              <div className="flex justify-between items-center mt-4">
+                <span className="text-lg font-semibold text-[#005c47]">{product.price.toLocaleString()}₫</span>
+                <button
+                  className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors duration-300"
+                  onClick={e => {
+                    e.preventDefault();
+                    window.location.href = `/products/${product._id}`;
+                  }}
+                >
+                  Xem Chi Tiết
+                </button>
+              </div>
             </div>
           </div>
-        </div>
+        </Link>
       ))}
     </div>
   );

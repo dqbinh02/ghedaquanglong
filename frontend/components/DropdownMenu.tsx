@@ -2,11 +2,12 @@ import React, { ReactNode, useState } from "react"
 import Link from "next/link"
 
 interface DropdownMenuProps {
-  label: ReactNode
+  label: string
+  labelHref: string
   items: { name: string; href: string }[]
 }
 
-export const DropdownMenu: React.FC<DropdownMenuProps> = ({ label, items }) => {
+export const DropdownMenu: React.FC<DropdownMenuProps> = ({ label, labelHref, items }) => {
   const [open, setOpen] = useState(false)
   const hideTimeout = React.useRef<NodeJS.Timeout | null>(null)
 
@@ -32,18 +33,30 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({ label, items }) => {
 
   return (
     <div
-      className="relative"
+      className="relative flex items-center"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <button className="flex items-center space-x-2 focus:outline-none">
-        {label}
-        <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+      <Link href={labelHref} className="flex items-center focus:outline-none select-none group">
+        <span className="text-gray-700 hover:text-[#005c47] font-medium transition-colors cursor-pointer">
+          {label}
+        </span>
+      </Link>
+      <button
+        className="ml-1 w-5 h-5 flex items-center justify-center focus:outline-none"
+        onClick={(e) => {
+          e.preventDefault();
+          setOpen((prev) => !prev);
+        }}
+        aria-label="Mở danh mục sản phẩm"
+        tabIndex={-1}
+      >
+        <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
         </svg>
       </button>
       {open && (
-        <div className="absolute left-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-50">
+        <div className="absolute left-0 top-full min-w-full w-48 bg-white border border-gray-200 rounded-md shadow-lg z-50 overflow-auto max-h-[60vh]">
           {items.map((item) => (
             <Link
               key={item.name}

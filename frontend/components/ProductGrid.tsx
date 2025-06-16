@@ -17,13 +17,15 @@ interface Product {
   features: string[]
 }
 
-export default function ProductGrid() {
+interface ProductGridProps {
+  selectedCategories?: string[];
+}
+
+export default function ProductGrid({ selectedCategories }: ProductGridProps) {
   const [products, setProducts] = useState<Product[]>([])
   const [categories, setCategories] = useState<string[]>([])
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState("")
-  const [isCategoryPopupOpen, setIsCategoryPopupOpen] = useState(false)
 
   useEffect(() => {
     fetchProducts()
@@ -59,8 +61,8 @@ export default function ProductGrid() {
     }
   }
 
-  const filteredProducts = selectedCategory
-    ? products.filter((product) => product.category === selectedCategory)
+  const filteredProducts = selectedCategories && selectedCategories.length > 0
+    ? products.filter((product) => selectedCategories.includes(product.category))
     : products
 
   if (isLoading) {

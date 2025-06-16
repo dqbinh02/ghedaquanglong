@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import { useParams } from "next/navigation"
 import { Phone, Mail, ArrowLeft } from "lucide-react"
 import Link from "next/link"
+import { API_BASE_URL } from "../../../lib/config";
 
 interface Product {
   _id: string
@@ -26,7 +27,7 @@ export default function ProductDetailPage() {
 
   const fetchProduct = async (id: string) => {
     try {
-      const response = await fetch(`/api/products/${id}`)
+      const response = await fetch(`${API_BASE_URL}/products/${id}`)
       if (response.ok) {
         const data = await response.json()
         setProduct(data)

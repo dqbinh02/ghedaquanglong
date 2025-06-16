@@ -1,23 +1,13 @@
+"use client";
+import { useState } from "react";
 import type { Metadata } from "next"
 import ProductGrid from "@/components/ProductGrid"
+import ProductCategoryFilter from "@/components/ProductCategoryFilter"
 import Hero from "@/components/Hero"
 
-export const metadata: Metadata = {
-  title: "Ghế Đá Quang Long - Chuyên sản xuất ghế đá công viên, bàn granito",
-  description:
-    "Công ty TNHH Ghế Đá Quang Long chuyên sản xuất và cung cấp ghế đá công viên, ghế đá sân vườn, bàn granito, gạch lát sân chất lượng cao.",
-  keywords: "ghế đá công viên, ghế đá sân vườn, bàn granito, gạch lát sân, đá ốp lát",
-  openGraph: {
-    title: "Ghế Đá Quang Long - Chuyên sản xuất ghế đá công viên",
-    description: "Chuyên sản xuất và cung cấp ghế đá công viên, bàn granito chất lượng cao",
-    url: "https://ghedaquanglong.com",
-    siteName: "Ghế Đá Quang Long",
-    locale: "vi_VN",
-    type: "website",
-  },
-}
 
 export default function HomePage() {
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   return (
     <main>
       <Hero />
@@ -30,7 +20,8 @@ export default function HomePage() {
               với hơn 10 năm kinh nghiệm
             </p>
           </div>
-          <ProductGrid />
+          <ProductCategoryFilter selected={selectedCategories} onChange={setSelectedCategories} />
+          <ProductGrid selectedCategories={selectedCategories} />
         </div>
       </section>
     </main>
