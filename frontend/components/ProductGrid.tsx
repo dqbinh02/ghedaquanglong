@@ -104,42 +104,6 @@ export default function ProductGrid() {
 
   return (
     <div className="space-y-8">
-      <div className="relative">
-        <button
-          onClick={() => setIsCategoryPopupOpen(!isCategoryPopupOpen)}
-          className="flex items-center space-x-2 px-4 py-2 bg-white border border-gray-200 rounded-lg hover:bg-gray-50"
-        >
-          <span>{selectedCategory || "Tất cả danh mục"}</span>
-          <ChevronDown className="w-4 h-4" />
-        </button>
-        
-        {isCategoryPopupOpen && (
-          <div className="absolute top-full left-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-10">
-            <button
-              onClick={() => {
-                setSelectedCategory(null)
-                setIsCategoryPopupOpen(false)
-              }}
-              className="w-full text-left px-4 py-2 hover:bg-gray-50"
-            >
-              Tất cả danh mục
-            </button>
-            {categories.map((category) => (
-              <button
-                key={category}
-                onClick={() => {
-                  setSelectedCategory(category)
-                  setIsCategoryPopupOpen(false)
-                }}
-                className="w-full text-left px-4 py-2 hover:bg-gray-50"
-              >
-                {category}
-              </button>
-            ))}
-          </div>
-        )}
-      </div>
-
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {filteredProducts.map((product) => (
           <Link

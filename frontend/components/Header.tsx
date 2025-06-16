@@ -60,14 +60,14 @@ const Navigation = ({ isMobile = false, onClose }: { isMobile?: boolean; onClose
           )
         }
         return (
-          <Link
-            key={item.name}
-            href={item.href}
-            className="text-gray-700 hover:text-[#005c47] font-medium transition-colors"
-            onClick={onClose}
-          >
-            {item.name}
-          </Link>
+        <Link
+          key={item.name}
+          href={item.href}
+          className="text-gray-700 hover:text-[#005c47] font-medium transition-colors"
+          onClick={onClose}
+        >
+          {item.name}
+        </Link>
         )
       })}
       <a
