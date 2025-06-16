@@ -4,6 +4,10 @@ import { useState, useEffect } from "react"
 import Link from "next/link"
 import { Menu, X, Phone } from "lucide-react"
 
+import { DropdownMenu } from "./DropdownMenu"
+
+import { getCategories } from "../lib/categories"
+
 const Navigation = ({ isMobile = false, onClose }: { isMobile?: boolean; onClose?: () => void }) => {
   const navigation = [
     { name: "Trang Chủ", href: "/" },
@@ -12,18 +16,60 @@ const Navigation = ({ isMobile = false, onClose }: { isMobile?: boolean; onClose
     { name: "Liên Hệ", href: "/contact" },
   ]
 
+  const [categories, setCategories] = useState<string[]>([])
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+
+  useEffect(() => {
+    setLoading(true)
+    getCategories()
+      .then((data) => {
+        setCategories(data)
+        setLoading(false)
+      })
+      .catch((err) => {
+        setError("Không thể tải danh mục sản phẩm")
+        setLoading(false)
+      })
+  }, [])
+
+  const productDropdown = [
+    { name: "Tất cả sản phẩm", href: "/products" },
+    ...categories.map((cat) => ({
+      name: cat,
+      href: `/products?category=${encodeURIComponent(cat)}`
+    }))
+  ]
+
   return (
     <nav className={isMobile ? "flex flex-col space-y-4" : "hidden md:flex items-center space-x-8"}>
-      {navigation.map((item) => (
-        <Link
-          key={item.name}
-          href={item.href}
-          className="text-gray-700 hover:text-[#005c47] font-medium transition-colors"
-          onClick={onClose}
-        >
-          {item.name}
-        </Link>
-      ))}
+      {navigation.map((item) => {
+        if (!isMobile && item.name === "Sản Phẩm") {
+          return (
+            <DropdownMenu
+              key={item.name}
+              label={<span className="text-gray-700 hover:text-[#005c47] font-medium transition-colors cursor-pointer">{item.name}</span>}
+              items={
+                loading
+                  ? [{ name: "Đang tải...", href: "/products" }]
+                  : error
+                  ? [{ name: error, href: "/products" }]
+                  : productDropdown
+              }
+            />
+          )
+        }
+        return (
+          <Link
+            key={item.name}
+            href={item.href}
+            className="text-gray-700 hover:text-[#005c47] font-medium transition-colors"
+            onClick={onClose}
+          >
+            {item.name}
+          </Link>
+        )
+      })}
       <a
         href="tel:+84123456789"
         className={`bg-[#005c47] text-white px-4 py-2 rounded-lg flex items-center space-x-2 ${
@@ -36,6 +82,8 @@ const Navigation = ({ isMobile = false, onClose }: { isMobile?: boolean; onClose
     </nav>
   )
 }
+
+
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)

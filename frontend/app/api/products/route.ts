@@ -54,9 +54,22 @@ const products = [
 
 export async function GET() {
   try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/products`, {
+      cache: "no-store",
+    })
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch products")
+    }
+
+    const products = await response.json()
     return NextResponse.json(products)
   } catch (error) {
-    return NextResponse.json({ error: "Failed to fetch products" }, { status: 500 })
+    console.error("Error fetching products:", error)
+    return NextResponse.json(
+      { error: "Failed to fetch products" },
+      { status: 500 }
+    )
   }
 }
 

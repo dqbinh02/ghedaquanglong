@@ -1,13 +1,13 @@
-import type { Metadata } from "next"
-import ProductList from "@/components/ProductList"
+"use client";
 
-export const metadata: Metadata = {
-  title: "Sản Phẩm - Ghế Đá Công Viên, Bàn Granito",
-  description:
-    "Khám phá bộ sưu tập ghế đá công viên, bàn granito, gạch lát sân chất lượng cao từ Quang Long. Giá cả cạnh tranh, giao hàng toàn quốc.",
-}
+import type { Metadata } from "next"
+import { useState } from "react";
+import ProductList from "@/components/ProductList";
+import ProductCategoryFilter from "@/components/ProductCategoryFilter";
+
 
 export default function ProductsPage() {
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   return (
     <main className="py-16">
       <div className="container mx-auto px-4">
@@ -18,7 +18,8 @@ export default function ProductsPage() {
             nhất
           </p>
         </div>
-        <ProductList />
+        <ProductCategoryFilter selected={selectedCategories} onChange={setSelectedCategories} />
+        <ProductList selectedCategories={selectedCategories} />
       </div>
     </main>
   )
