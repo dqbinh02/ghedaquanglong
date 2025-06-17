@@ -103,8 +103,8 @@ export default function Header() {
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center py-4">
           <Link href="/" className="flex items-center space-x-3">
-            <div className="w-12 h-12 bg-[#005c47] rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-xl">QL</span>
+            <div className="w-16 h-16 rounded-xl flex items-center justify-center bg-white overflow-hidden border border-gray-200">
+              <img src="/logo.png" alt="Logo Quang Long" className="object-contain w-14 h-14" />
             </div>
             <div>
               <h1 className="text-xl font-bold text-[#005c47]">Ghế Đá Quang Long</h1>

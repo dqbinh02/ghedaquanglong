@@ -8,12 +8,12 @@ export default function Hero() {
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div>
             <h1 className="text-4xl lg:text-6xl font-bold mb-6 leading-tight">
-              Ghế Đá Công Viên
+              Ghế Đá Quang Long
               <span className="block text-yellow-400">Chất Lượng Cao</span>
             </h1>
             <p className="text-xl mb-8 text-gray-200">
-              Chuyên sản xuất và cung cấp ghế đá công viên, bàn granito, gạch lát sân với hơn 10 năm kinh nghiệm. Cam
-              kết chất lượng và giá cả cạnh tranh.
+              Chuyên sản xuất và cung cấp bàn ghế đá, đan, đà, cống với hơn 10 năm kinh nghiệm. Cam kết chất lượng và
+              giá cả cạnh tranh.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 mb-12">
               <Link

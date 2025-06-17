@@ -105,15 +105,18 @@ export default function ContactPage() {
           {/* Map */}
           <div>
             <h2 className="text-2xl font-bold text-gray-900 mb-8">Bản Đồ</h2>
-            <div className="bg-gray-200 rounded-lg h-96 flex items-center justify-center">
-              <div className="text-center text-gray-600">
-                <MapPin className="w-12 h-12 mx-auto mb-4" />
-                <p>Google Maps sẽ được tích hợp tại đây</p>
-                <p className="text-sm mt-2">Tọa độ: RRQH+9V9, Nguyễn Xiển, Long Thạnh Mỹ, Thủ Đức, Hồ Chí Minh</p>
-              </div>
+            <div className="rounded-lg overflow-hidden w-full min-h-[350px] h-96 shadow-md">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1853.682824464157!2d106.83154648703382!3d10.83020665024414!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317520c57d2a3d97%3A0xbd98cf9c260b3c4c!2zQ8ahIFPhu58gR2jhur8gxJDDoSBRdWFuZyBMb25n!5e0!3m2!1svi!2ssg!4v1750082904382!5m2!1svi!2ssg"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen={true}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Bản đồ Ghế Đá Quang Long"
+              ></iframe>
             </div>
-
-            {/* Directions */}
             <div className="mt-6 p-4 bg-gray-50 rounded-lg">
               <h4 className="font-semibold text-gray-900 mb-2">Hướng Dẫn Đường Đi</h4>
               <ul className="text-gray-600 space-y-1 text-sm">
