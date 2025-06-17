@@ -1,11 +1,9 @@
 import type { Metadata } from "next";
 
-// Next.js sẽ truyền params vào hàm generateMetadata
-
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   // Sử dụng biến môi trường server-side (không dùng NEXT_PUBLIC_)
-  const API_URL = process.env.API_URL || "http://localhost:8000";
-  const SITE_URL = process.env.SITE_URL || "http://localhost:3000";
+  const API_URL = process.env.API_URL;
+  const SITE_URL = process.env.SITE_URL;
 
   try {
     const res = await fetch(`${API_URL}/products/${params.slug}`);
