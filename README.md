@@ -1,104 +1,127 @@
-# Quang Long Stone Bench Website
+# Gheda Quang Long Website
 
-A full-stack web application for Quang Long Stone Bench, featuring a FastAPI + MongoDB backend and a Next.js (React) + Tailwind CSS frontend.
+Website bán hàng của Gheda Quang Long được xây dựng bằng Next.js, TypeScript và MongoDB.
 
----
+## Yêu cầu hệ thống
 
-## Project Structure
+- Node.js 18.x trở lên
+- MongoDB 4.x trở lên
+- npm hoặc yarn
 
-```
-/ (root)
-│
-├── backend/      # FastAPI backend (Python)
-│   ├── app/      # Main backend application code
-│   ├── ...
-│
-├── frontend/     # Next.js frontend (React, TypeScript, Tailwind CSS)
-│   ├── app/      # Main frontend application code
-│   ├── components/
-│   ├── ...
-│
-└── README.md     # This file
-```
+## Cài đặt
 
----
-
-## Backend (FastAPI + MongoDB)
-
-### Requirements
-- Python >= 3.9
-- MongoDB
-- uv (Python package manager)
-
-### Setup
-1. Clone the repository:
-   ```bash
-   git clone <repository-url>
-   cd ghedaquanglong_website/backend
-   ```
-2. Create and activate a virtual environment:
-   ```bash
-   uv venv
-   source .venv/bin/activate  # Linux/Mac
-   # or
-   .venv\Scripts\activate  # Windows
-   ```
-3. Install dependencies:
-   ```bash
-   uv pip install fastapi uvicorn motor passlib[bcrypt] python-jose
-   ```
-4. Create a `.env` file in `backend/`:
-   ```env
-   MONGODB_URL=mongodb://localhost:27017
-   ```
-
-### Running the Backend
+1. Clone repository:
 ```bash
-uvicorn app.main:app --reload
+git clone <repository-url>
+cd ghedaquanglong_website
 ```
-- The API will be available at `http://localhost:8000`
 
----
-
-## Frontend (Next.js + Tailwind CSS)
-
-### Requirements
-- Node.js >= 18
-- pnpm or npm
-
-### Setup
-1. Navigate to the frontend directory:
-   ```bash
-   cd ../frontend
-   ```
-2. Install dependencies:
-   ```bash
-   pnpm install
-   # or
-   npm install
-   ```
-3. Create a `.env.local` file if needed for environment variables.
-
-### Running the Frontend
+2. Cài đặt dependencies:
 ```bash
-pnpm dev
-# or
+npm install
+```
+
+3. Tạo file .env.local và cấu hình các biến môi trường:
+```env
+MONGODB_URI=mongodb://localhost:27017
+MONGODB_DB=ghedaquanglong
+JWT_SECRET=your-secret-key-here
+NEXTAUTH_SECRET=your-nextauth-secret-here
+NEXTAUTH_URL=http://localhost:3000
+```
+
+4. Chạy development server:
+```bash
 npm run dev
 ```
-- The frontend will be available at `http://localhost:3000`
 
----
+5. Mở trình duyệt và truy cập http://localhost:3000
 
-## Usage
-- Access the frontend at `http://localhost:3000`.
-- The frontend communicates with the backend API at `http://localhost:8000`.
-- Make sure both backend and frontend servers are running for full functionality.
+## Cấu trúc dự án
 
----
+```
+src/
+├── app/                    # App Router của Next.js
+│   ├── api/               # API routes
+│   ├── (routes)/         # Các routes của ứng dụng
+│   └── layout.tsx        # Root layout
+├── components/            # React components
+│   └── ui/               # UI components
+├── lib/                   # Utility functions và services
+│   ├── auth.ts           # Authentication utilities
+│   ├── mongodb.ts        # MongoDB connection
+│   └── services/         # Business logic services
+└── types/                # TypeScript type definitions
+```
 
-## Notes
-- Backend uses FastAPI, MongoDB, and JWT authentication.
-- Frontend is built with Next.js (React), TypeScript, and Tailwind CSS.
-- For development, use separate terminals for backend and frontend.
+## API Endpoints
 
-Feel free to customize this README with your project details, deployment instructions, or contribution guidelines.
+### Products
+
+- `GET /api/v1/products` - Lấy danh sách sản phẩm
+- `GET /api/v1/products/categories` - Lấy danh sách categories
+- `GET /api/v1/products/:id` - Lấy thông tin sản phẩm theo ID
+- `POST /api/v1/products` - Tạo sản phẩm mới
+- `PUT /api/v1/products/:id` - Cập nhật sản phẩm
+- `DELETE /api/v1/products/:id` - Xóa sản phẩm
+
+### Authentication
+
+- `POST /api/v1/user/login` - Đăng nhập
+
+## Tính năng
+
+- [x] Đăng nhập/Đăng xuất
+- [x] Quản lý sản phẩm (CRUD)
+- [x] Phân loại sản phẩm theo category
+- [x] Responsive design
+- [x] Dark mode
+- [x] Form validation
+- [x] Image upload
+- [x] API authentication
+
+## Công nghệ sử dụng
+
+- Next.js 14
+- TypeScript
+- MongoDB
+- Tailwind CSS
+- NextAuth.js
+- React Hook Form
+- Zod
+- Shadcn/ui
+
+## Getting Started
+
+First, run the development server:
+
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+
+## Learn More
+
+To learn more about Next.js, take a look at the following resources:
+
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
