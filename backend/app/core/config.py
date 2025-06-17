@@ -10,10 +10,8 @@ class Settings(BaseSettings):
     PROJECT_NAME: str = "Ghe Da Quang Long API"
     
     # CORS
-    BACKEND_CORS_ORIGINS: List[str] = [
-        "http://localhost:3000",
-        "https://ghedaquanglong.com",
-    ]
+    # Get cros from env
+    BACKEND_CORS_ORIGINS: str = os.getenv("BACKEND_CORS_ORIGINS")
     
     # MongoDB
     MONGODB_URL: str = os.getenv("MONGODB_URL")
