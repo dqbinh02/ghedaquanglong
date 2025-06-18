@@ -55,17 +55,25 @@ export default function ProductForm({ token, product, onClose, onSuccess }: Prod
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     try {
-      const url = product._id
+      const url = product?._id
         ? `/api/products/${product._id}`
         : "/api/products"
-      const method = product._id ? "PUT" : "POST"
+      const method = product?._id ? "PUT" : "POST"
+      
+      // Process formData for submission
+      const submitData = {
+        ...formData,
+        features: formData.features ? formData.features.split(',').map(f => f.trim()).filter(f => f) : [],
+        price: Number(formData.price)
+      }
+      
       const response = await fetch(url, {
         method,
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-        body: JSON.stringify(product),
+        body: JSON.stringify(submitData),
       })
       if (response.ok) {
         onSuccess()

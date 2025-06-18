@@ -39,6 +39,7 @@ export default function AdminPage() {
   const [showForm, setShowForm] = useState(false)
   const [editingProduct, setEditingProduct] = useState<Product | null>(null)
   const [successMessage, setSuccessMessage] = useState("")
+  const [refreshKey, setRefreshKey] = useState(0)
 
   useEffect(() => {
     const storedToken = localStorage.getItem("adminToken")
@@ -75,6 +76,7 @@ export default function AdminPage() {
     setShowForm(false)
     setEditingProduct(null)
     setSuccessMessage("Thao tác thành công!")
+    setRefreshKey(prev => prev + 1)
     setTimeout(() => setSuccessMessage(""), 3000)
   }
 
@@ -114,6 +116,7 @@ export default function AdminPage() {
               )}
 
               <ProductList
+                key={refreshKey}
                 token={token}
                 onEdit={handleEdit}
                 onSuccess={handleFormSuccess}

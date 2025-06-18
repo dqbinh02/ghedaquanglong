@@ -2,10 +2,14 @@ import { Product, ProductCreate, ProductUpdate } from '@/types/product';
 import { connectToDatabase } from '@/lib/mongodb';
 import { ObjectId } from 'mongodb';
 
+interface ProductDocument extends Omit<Product, 'id'> {
+  _id: ObjectId;
+}
+
 export class ProductService {
   static async getProducts(): Promise<Product[]> {
     const db = await connectToDatabase();
-    const products = await db.collection('products').find().toArray();
+    const products = await db.collection<ProductDocument>('products').find().toArray();
     return products.map(product => ({
       ...product,
       id: product._id.toString(),
@@ -14,7 +18,7 @@ export class ProductService {
 
   static async getProduct(id: string): Promise<Product | null> {
     const db = await connectToDatabase();
-    const product = await db.collection('products').findOne({ _id: new ObjectId(id) });
+    const product = await db.collection<ProductDocument>('products').findOne({ _id: new ObjectId(id) });
     if (!product) return null;
     return {
       ...product,
@@ -40,11 +44,12 @@ export class ProductService {
   static async updateProduct(id: string, product: ProductUpdate): Promise<Product | null> {
     const db = await connectToDatabase();
     const now = new Date().toISOString();
+    const { _id, ...updateData } = product as any; // Remove _id if present
     const update = {
-      ...product,
+      ...updateData,
       updated_at: now,
     };
-    const result = await db.collection('products').findOneAndUpdate(
+    const result = await db.collection<ProductDocument>('products').findOneAndUpdate(
       { _id: new ObjectId(id) },
       { $set: update },
       { returnDocument: 'after' }
