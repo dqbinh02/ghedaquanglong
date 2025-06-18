@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { ArrowRight, Star, Users, Award } from "lucide-react"
+import HomepageCarousel from "./HomepageCarousel"
 
 export default function Hero() {
   return (
@@ -58,12 +59,8 @@ export default function Hero() {
           </div>
 
           <div className="relative">
-            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8">
-              <img
-                src="/placeholder.svg"
-                alt="Ghế đá công viên Quang Long"
-                className="w-full h-auto rounded-lg shadow-2xl"
-              />
+            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4">
+              <HomepageCarousel />
             </div>
           </div>
         </div>

@@ -5,12 +5,12 @@ import ProductGrid from "@/components/ProductGrid"
 import ProductCategoryFilter from "@/components/ProductCategoryFilter"
 import Hero from "@/components/Hero"
 
-
 export default function HomePage() {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   return (
     <main>
       <Hero />
+      
       <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
